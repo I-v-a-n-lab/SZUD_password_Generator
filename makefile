@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99 -g
-SRC = src/main.c src/password_gen.c
+SRC = src/main.c src/password_gen.c src/utils.c
 OBJ = $(SRC:.c=.o)
 TARGET = bin/password_generator
 

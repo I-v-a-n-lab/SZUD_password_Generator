@@ -3,3 +3,5 @@
 *.out
 bin/
 .vscode/
+saved_passwords.txt
+saved_usernames.txt

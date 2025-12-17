@@ -19,7 +19,7 @@
  */
 void generate_password(int length, char *password) {
     if (password == NULL) {
-        fprintf(stderr, "Greška: Nevaljani pokazivač na lozinku!\n");
+        fprintf(stderr, "Greska: Nevaljani pokazivac na lozinku!\n");
         return;
     }
 
@@ -40,9 +40,36 @@ void generate_password(int length, char *password) {
  */
 void display_password(const char *password) {
     if (password == NULL) {
-        fprintf(stderr, "Greška: Nevaljana lozinka!\n");
+        fprintf(stderr, "Greska: Nevaljana lozinka!\n");
         return;
     }
     printf("Generisana lozinka: %s\n", password);
-    printf("Dužina lozinke: %zu karaktera\n", strlen(password));
+    printf("Duzina lozinke: %zu karaktera\n", strlen(password));
+}
+
+/**
+ * Funkcija za validaciju unosa dužine lozinke
+ * Vraća validnu dužinu ili DEFAULT_PASSWORD_LENGTH ako je nevaljano
+ */
+int validate_password_length(const char *input) {
+    if (input == NULL) {
+        return DEFAULT_PASSWORD_LENGTH;
+    }
+
+    char *endptr;
+    long value = strtol(input, &endptr, 10);
+
+    // Provera da li je unos validan broj
+    if (endptr == input || (*endptr != '\0' && *endptr != '\n')) {
+        return DEFAULT_PASSWORD_LENGTH;
+    }
+
+    // Provera da li je u dozvoljenom opsegu
+    if (value < MIN_PASSWORD_LENGTH || value > MAX_PASSWORD_LENGTH) {
+        printf("Upozorenje: Duzina mora biti izmedju %d i %d!\n",
+               MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH);
+        return DEFAULT_PASSWORD_LENGTH;
+    }
+
+    return (int)value;
 }

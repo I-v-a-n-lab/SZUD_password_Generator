@@ -14,4 +14,7 @@ void generate_password(int length, char *password);
 // Funkcija za ispis lozinke
 void display_password(const char *password);
 
+// Funkcija za validaciju unosa
+int validate_password_length(const char *input);
+
 #endif // PASSWORD_GEN_H

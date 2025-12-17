@@ -3,57 +3,55 @@
 #include <string.h>
 #include <time.h>
 #include "password_gen.h"
+#include "utils.h"
 
 int main() {
     // Inicijalizacija seed-a za random broj generator
     srand((unsigned int)time(NULL));
-    
+
     int password_length;
-    char password[MAX_PASSWORD_LENGTH + 1]; // +1 za '\0'
-    
-    printf("=== PASSWORD GENERATOR ===\n");
-    printf("Dobrodošli u Password Generator!\n\n");
-    
+    char password[MAX_PASSWORD_LENGTH + 1];
+
+    printf("\n");
+    printf("========================================\n");
+    printf("     PASSWORD GENERATOR v1.0            \n");
+    printf("========================================\n");
+    printf("\nDobrodosli u Password Generator!\n");
+    printf("Ova aplikacija generise sigurne lozinke.\n\n");
+
     // Unos dužine lozinke od korisnika
-    printf("Unesite željenu dužinu lozinke (10-128, ili Enter za default 10): ");
-    
+    printf("Unesite zeljenu duzinu lozinke (10-128, ili Enter za default 10): ");
+
     char input[10];
     if (fgets(input, sizeof(input), stdin) != NULL) {
-        // Pokušaj da konvertuj unos u broj
-        char *endptr;
-        long value = strtol(input, &endptr, 10);
-        
         // Validacija unosa
-        if (endptr == input || *endptr != '\n') {
-            // Unos nije broj - koristi default
-            printf("Nevaljani unos! Korišćenje default vrednosti (10 karaktera).\n\n");
-            password_length = DEFAULT_PASSWORD_LENGTH;
-        } else if (value < MIN_PASSWORD_LENGTH || value > MAX_PASSWORD_LENGTH) {
-            // Broj je van dozvoljenog opsega
-            printf("Dužina mora biti između %d i %d! Korišćenje default vrednosti.\n\n", 
-                   MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH);
-            password_length = DEFAULT_PASSWORD_LENGTH;
-        } else {
-            // Validna vrednost
-            password_length = (int)value;
+        password_length = validate_password_length(input);
+
+        if (password_length == DEFAULT_PASSWORD_LENGTH && input[0] != '\n') {
+            printf("Koriscenje default vrednosti (%d karaktera).\n\n",
+                   DEFAULT_PASSWORD_LENGTH);
+        } else if (password_length != DEFAULT_PASSWORD_LENGTH) {
+            printf("\n");
         }
     } else {
-        // Greška pri čitanju - koristi default
-        printf("Greška pri unošenju! Korišćenje default vrednosti.\n\n");
+        printf("Greska pri citanju! Koriscenje default vrednosti.\n\n");
         password_length = DEFAULT_PASSWORD_LENGTH;
     }
-    
+
     // Generisanje lozinke
+    printf("Generise se lozinka...\n");
     generate_password(password_length, password);
-    
+    printf("[OK] Lozinka je generisana!\n\n");
+
     // Prikaz lozinke
     display_password(password);
-    
-    printf("\n=== NAPOMENA ===\n");
-    printf("Lozinka sadrži:\n");
-    printf("- Brojeve (0-9)\n");
-    printf("- Mala slova (a-z)\n");
-    printf("- Velika slova (A-Z)\n");
-    
+
+    // Prikaz opcija za čuvanje
+    show_save_options(password);
+
+    printf("=========================================\n");
+    printf("Hvala sto si koristio Password Generator!\n");
+    printf("=========================================\n\n");
+
     return EXIT_SUCCESS;
 }
