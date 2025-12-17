@@ -24,7 +24,7 @@ void copy_to_clipboard(const char *password) {
         fprintf(pipe, "%s", password);
         _pclose(pipe);
         printf("[OK] Lozinka je kopirana na clipboard (Windows)!\n");
-        printf("INFO: Operacija završena!\n");
+        printf("DEBUG: Copy uspešan!\n");
     } else {
         fprintf(stderr, "Greska: Nije moguce pristupiti clipboard-u!\n");
     }

@@ -14,8 +14,8 @@
 
 /**
  * Funkcija za generisanje lozinke sa random karakterima
- * @param length - Dužina željene lozinke
- * @param password - Pokazivač na buffer gde će se sačuvati lozinka
+ * @param length - Duzina zeljene lozinke
+ * @param password - Pokazivac na buffer gde ce se sacuvati lozinka
  */
 void generate_password(int length, char *password) {
     if (password == NULL) {
@@ -48,8 +48,8 @@ void display_password(const char *password) {
 }
 
 /**
- * Funkcija za validaciju unosa dužine lozinke
- * Vraća validnu dužinu ili DEFAULT_PASSWORD_LENGTH ako je nevaljano
+ * Funkcija za validaciju unosa duzine lozinke
+ * Vraca validnu duzinu ili DEFAULT_PASSWORD_LENGTH ako je nevaljano
  */
 int validate_password_length(const char *input) {
     if (input == NULL) {
@@ -66,7 +66,7 @@ int validate_password_length(const char *input) {
 
     // Provera da li je u dozvoljenom opsegu
     if (value < MIN_PASSWORD_LENGTH || value > MAX_PASSWORD_LENGTH) {
-        printf("Upozorenje: Duzina mora biti izmedju %d i %d!\n",
+        printf("Upozorenje: Duzina mora biti izmedu %d i %d!\n",
                MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH);
         return DEFAULT_PASSWORD_LENGTH;
     }
