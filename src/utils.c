@@ -14,6 +14,9 @@ void copy_to_clipboard(const char *password) {
         return;
     }
 
+    printf("INFO: Clipboard operacija u toku...\n");
+    printf("INFO: Lozinka se kopira na sistemski clipboard\n");
+
 #ifdef _WIN32
     // Windows verzija - koristi PowerShell
     FILE *pipe = _popen("clip", "w");
@@ -21,6 +24,7 @@ void copy_to_clipboard(const char *password) {
         fprintf(pipe, "%s", password);
         _pclose(pipe);
         printf("[OK] Lozinka je kopirana na clipboard (Windows)!\n");
+        printf("INFO: Operacija završena!\n");
     } else {
         fprintf(stderr, "Greska: Nije moguce pristupiti clipboard-u!\n");
     }
